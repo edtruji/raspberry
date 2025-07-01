@@ -3,59 +3,67 @@ import threading
 import time
 import sys
 
-# Check if an argument is provided
-if len(sys.argv) != 2:
-    print("Usage: sudo python3 pulse.py <number_of_pulses>")
+# Check for correct number of command-line arguments
+if len(sys.argv) != 3:
+    print("Usage: sudo python3 pulse_thread.py <num_pulses_pin13> <num_pulses_pin15>")
     sys.exit(1)
 
+# Get number of pulses from command-line arguments
 try:
-    num_pulses = int(sys.argv[1])
-    if num_pulses <= 0:
-        raise ValueError("Number of pulses must be positive")
-except ValueError:
-    print("Error: Please provide a valid positive integer")
+    num_pulses_pin13 = int(sys.argv[1])
+    num_pulses_pin15 = int(sys.argv[2])
+    if num_pulses_pin13 < 0 or num_pulses_pin15 < 0:
+        raise ValueError("Number of pulses must be non-negative")
+except ValueError as e:
+    print(f"Error: {e}. Please provide valid non-negative integers.")
     sys.exit(1)
 
-# Set up GPIO using BOARD numbering
+# Set up GPIO mode
 GPIO.setmode(GPIO.BOARD)
 
-# Define PIN 7 (board pinout)
-PIN = 7
+# Define the GPIO pins (BOARD numbering)
+PIN_1 = 13  # Physical pin 33
+PIN_2 = 15  # Physical pin 10
 
-# Set up PIN as output
-GPIO.setup(PIN, GPIO.OUT)
+# Set up the pins as output
+GPIO.setup(PIN_1, GPIO.OUT)
+GPIO.setup(PIN_2, GPIO.OUT)
 
-# Define the pulse-sending function for the thread
-def send_pulses(num_pulses):
+def pulse_pin(pin, num_pulses):
+    """Function to pulse a single pin for a specified number of 50ms high/50ms low pulses."""
+    for _ in range(num_pulses):
+        GPIO.output(pin, GPIO.HIGH)
+        time.sleep(0.050)  # 50ms high
+        GPIO.output(pin, GPIO.LOW)
+        time.sleep(0.050)  # 50ms low
+
+def main():
+    # Create threads for each pin
+    thread1 = threading.Thread(target=pulse_pin, args=(PIN_1, num_pulses_pin13))
+    thread2 = threading.Thread(target=pulse_pin, args=(PIN_2, num_pulses_pin15))
+
+    # Start the threads
+    print(f"Starting {num_pulses_pin13} pulses on PIN 13 and {num_pulses_pin15} pulses on PIN 15...")
+    start_time = time.time()
+    thread1.start()
+    thread2.start()
+
+    # Wait for threads to complete
+    thread1.join()
+    thread2.join()
+
+    # Calculate and print total runtime
+    runtime = time.time() - start_time
+    print(f"Pulsing completed in {runtime:.2f} seconds.")
+
+    # Cleanup GPIO
+    GPIO.cleanup()
+    print("GPIO cleanup completed.")
+
+if __name__ == "__main__":
     try:
-        # Send specified number of 50ms pulses
-        for i in range(num_pulses):
-            GPIO.output(PIN, GPIO.HIGH)
-            time.sleep(0.05)  # 50ms pulse
-            GPIO.output(PIN, GPIO.LOW)
-            time.sleep(0.05)  # 50ms gap between pulses
-        print(f"Sent {num_pulses} pulses")
-    finally:
-        # Clean up GPIO in the thread
+        main()
+    except KeyboardInterrupt:
+        print("\nProgram interrupted. Cleaning up GPIO...")
         GPIO.cleanup()
-
-try:
-    # Create a thread for sending pulses
-    pulse_thread = threading.Thread(target=send_pulses, args=(num_pulses,))
-    
-    # Start the thread
-    pulse_thread.start()
-    
-    # Wait for the thread to complete
-    pulse_thread.join()
-    
-    print("Main program finished")
-
-except KeyboardInterrupt:
-    print("\nProgram interrupted by user")
-    # Thread handles GPIO cleanup
-    sys.exit(0)
-except Exception as e:
-    print(f"Error: {e}")
-    # Thread handles GPIO cleanup
-    sys.exit(1)
+        sys.exit(0)
