@@ -1,35 +1,5 @@
 import qrcode
 import ipaddress
-import validators
-import sys
- 
-def is_valid_ip(ip_string):
-    try:
-        # Attempt to create an IP address object
-        ip = ipaddress.ip_address(ip_string)        
-        # Determine IP version
-        if isinstance(ip, ipaddress.IPv4Address):
-            return True, "IPv4"
-        elif isinstance(ip, ipaddress.IPv6Address):
-            return True, "IPv6"
-    except ValueError:
-        # Return False if the string is not a valid IP address
-        return False, None
-    return False, None
-    
-def is_valid_url(url):
-    """Check if the URL is valid."""
-    return validators.url(url)
-
-def is_valid_ip(ip):
-    """Check if the input is a valid IPv4 or IPv6 address."""
-    try:
-        ipaddress.ip_address(ip)
-        return True
-    except ValueError:
-        return False
-import qrcode
-import ipaddress
 import sys
 import validators
 
@@ -107,5 +77,5 @@ if __name__ == "__main__":
     try:
         main()
     except KeyboardInterrupt:
-        print("\nError")
+        print("\nError: KeyboardInterrupt")
         sys.exit(0)
