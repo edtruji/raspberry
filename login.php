@@ -1,10 +1,28 @@
 <?php
 // login.php
+
+// Initialize language (default to Spanish)
+$language = isset($_GET['lang']) && in_array($_GET['lang'], ['en_US', 'es_ES']) ? $_GET['lang'] : 'es_ES';
+
+// Set locale and gettext configuration
+putenv("LC_ALL=$language.UTF-8");
+setlocale(LC_ALL, "$language.UTF-8");
+bindtextdomain('messages', './locale');
+bind_textdomain_codeset('messages', 'UTF-8');
+textdomain('messages');
+
+// Define _() for convenience if not already defined
+if (!function_exists('_')) {
+    function _($string) {
+        return gettext($string);
+    }
+}
+
 echo <<<HTML
 <!DOCTYPE html>
-<html>
+<html lang="{$language}">
 <head>
-    <title>Login Screen</title>
+    <title>" . _("Employee Number") . "</title>
     <style>
         body {
             background: linear-gradient(to bottom, #87CEEB, #ADD8E6);
@@ -14,6 +32,18 @@ echo <<<HTML
             height: 100vh;
             margin: 0;
             font-family: Arial, sans-serif;
+            position: relative;
+        }
+        .language-selector {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+        .language-selector select {
+            padding: 5px;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
         }
         .login-container {
             text-align: center;
@@ -31,6 +61,7 @@ echo <<<HTML
             grid-template-columns: repeat(3, 80px);
             gap: 10px;
             margin-top: 20px;
+            justify-content: center;
         }
         .keypad button {
             width: 80px;
@@ -40,34 +71,28 @@ echo <<<HTML
             border-radius: 10px;
             background: #f9f9f9;
             cursor: pointer;
-            touch-action: manipulation; /* Optimize for touch screens */
+            touch-action: manipulation;
+            transition: background 0.1s ease;
         }
         .keypad button:active {
             background: #e0e0e0;
-        }
-        .bottom-row {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 20px;
-            gap: 10px;
-        }
-        .bottom-row button {
-            width: 100px;
-            height: 80px;
-            font-size: 20px;
-            border: 2px solid #ccc;
-            border-radius: 10px;
-            background: #f9f9f9;
-            cursor: pointer;
-            touch-action: manipulation;
+            transform: scale(0.95);
         }
         #backspace {
-            background: #ff6347; /* Red for Borrar */
+            background: #ff6347; /* Red for Clear */
             color: white;
         }
+        #backspace:active {
+            background: #cc4f39;
+            transform: scale(0.95);
+        }
         #enter {
-            background: #32CD32; /* Green for Aceptar */
+            background: #32CD32; /* Green for Accept */
             color: white;
+        }
+        #enter:active {
+            background: #28a428;
+            transform: scale(0.95);
         }
         #pin-display {
             font-size: 28px;
@@ -82,8 +107,14 @@ echo <<<HTML
     </style>
 </head>
 <body>
+    <div class="language-selector">
+        <select id="language" onchange="changeLanguage()">
+            <option value="es_ES" " . ($language === 'es_ES' ? 'selected' : '') . ">" . _("Spanish") . "</option>
+            <option value="en_US" " . ($language === 'en_US' ? 'selected' : '') . ">" . _("English") . "</option>
+        </select>
+    </div>
     <div class="login-container">
-        <h2>Ingrese Número de Empleado</h2>
+        <h2>" . _("Employee Number") . "</h2>
         <span id="pin-display"></span>
         <div id="message"></div>
         <div class="keypad">
@@ -96,14 +127,32 @@ echo <<<HTML
             <button class="digit" data-digit="7">7</button>
             <button class="digit" data-digit="8">8</button>
             <button class="digit" data-digit="9">9</button>
-        </div>
-        <div class="bottom-row">
-            <button id="backspace">Borrar</button>
+            <button id="backspace">" . _("Clear") . "</button>
             <button class="digit" data-digit="0">0</button>
-            <button id="enter">Aceptar</button>
+            <button id="enter">" . _("Accept") . "</button>
         </div>
     </div>
     <script>
+        // JavaScript translations for dynamic messages
+        const translations = {
+            'es_ES': {
+                'please_enter_4_digits': '" . _("Please enter 4 digits") . "',
+                'access_granted': '" . _("Access granted") . "',
+                'incorrect_code': '" . _("Incorrect code") . "'
+            },
+            'en_US': {
+                'please_enter_4_digits': '" . _("Please enter 4 digits") . "',
+                'access_granted': '" . _("Access granted") . "',
+                'incorrect_code': '" . _("Incorrect code") . "'
+            }
+        };
+        const currentLang = '$language';
+
+        function changeLanguage() {
+            const lang = document.getElementById('language').value;
+            window.location.href = '?lang=' + lang;
+        }
+
         const pinDisplay = document.getElementById('pin-display');
         const messageDiv = document.getElementById('message');
         const digitButtons = document.querySelectorAll('.digit');
@@ -117,7 +166,7 @@ echo <<<HTML
         }
         
         function showMessage(message) {
-            messageDiv.textContent = message;
+            messageDiv.textContent = translations[currentLang][message];
         }
         
         function clearMessage() {
@@ -142,11 +191,11 @@ echo <<<HTML
         
         enterButton.addEventListener('click', () => {
             if (enteredCode.length !== 4) {
-                showMessage("Por favor ingrese 4 dígitos");
+                showMessage('please_enter_4_digits');
             } else if (enteredCode === "1234") {
-                showMessage("Acceso concedido");
+                showMessage('access_granted');
             } else {
-                showMessage("Código incorrecto");
+                showMessage('incorrect_code');
                 enteredCode = "";
                 updatePinDisplay();
             }
