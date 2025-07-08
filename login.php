@@ -6,38 +6,84 @@ echo <<<HTML
 <head>
     <title>Login Screen</title>
     <style>
+        body {
+            background: linear-gradient(to bottom, #87CEEB, #ADD8E6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .login-container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
         .keypad {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, 80px);
             gap: 10px;
-            margin-top: 10px;
+            margin-top: 20px;
         }
         .keypad button {
-            padding: 10px;
-            font-size: 18px;
+            width: 80px;
+            height: 80px;
+            font-size: 24px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background: #f9f9f9;
+            cursor: pointer;
+            touch-action: manipulation; /* Optimize for touch screens */
+        }
+        .keypad button:active {
+            background: #e0e0e0;
         }
         .bottom-row {
             display: flex;
             justify-content: space-between;
-            margin-top: 10px;
+            margin-top: 20px;
+            gap: 10px;
         }
         .bottom-row button {
-            padding: 10px;
-            font-size: 18px;
+            width: 100px;
+            height: 80px;
+            font-size: 20px;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            background: #f9f9f9;
+            cursor: pointer;
+            touch-action: manipulation;
+        }
+        #backspace {
+            background: #ff6347; /* Red for Borrar */
+            color: white;
+        }
+        #enter {
+            background: #32CD32; /* Green for Aceptar */
+            color: white;
         }
         #pin-display {
-            font-size: 24px;
-            letter-spacing: 5px;
+            font-size: 28px;
+            letter-spacing: 10px;
+            margin-bottom: 20px;
         }
         #message {
             color: red;
             margin-top: 10px;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Enter PIN</h2>
+        <h2>Ingrese Número de Empleado</h2>
         <span id="pin-display"></span>
         <div id="message"></div>
         <div class="keypad">
@@ -52,9 +98,9 @@ echo <<<HTML
             <button class="digit" data-digit="9">9</button>
         </div>
         <div class="bottom-row">
-            <button id="backspace">Backspace</button>
+            <button id="backspace">Borrar</button>
             <button class="digit" data-digit="0">0</button>
-            <button id="enter">Enter</button>
+            <button id="enter">Aceptar</button>
         </div>
     </div>
     <script>
@@ -96,11 +142,11 @@ echo <<<HTML
         
         enterButton.addEventListener('click', () => {
             if (enteredCode.length !== 4) {
-                showMessage("Please enter 4 digits");
+                showMessage("Por favor ingrese 4 dígitos");
             } else if (enteredCode === "1234") {
-                showMessage("Access granted");
+                showMessage("Acceso concedido");
             } else {
-                showMessage("Incorrect code");
+                showMessage("Código incorrecto");
                 enteredCode = "";
                 updatePinDisplay();
             }
