@@ -1,1 +1,23 @@
+msgid "Employee Number"
+msgstr "Employee Number"
 
+msgid "Clear"
+msgstr "Clear"
+
+msgid "Accept"
+msgstr "Accept"
+
+msgid "Please enter 4 digits"
+msgstr "Please enter 4 digits"
+
+msgid "Access granted"
+msgstr "Access granted"
+
+msgid "Incorrect code"
+msgstr "Incorrect code"
+
+msgid "English"
+msgstr "English"
+
+msgid "Spanish"
+msgstr "Spanish"
