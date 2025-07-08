@@ -1,0 +1,24 @@
+# messages.pot
+msgid "Employee Number"
+msgstr ""
+
+msgid "Clear"
+msgstr ""
+
+msgid "Accept"
+msgstr ""
+
+msgid "Please enter 4 digits"
+msgstr ""
+
+msgid "Access granted"
+msgstr ""
+
+msgid "Incorrect code"
+msgstr ""
+
+msgid "English"
+msgstr ""
+
+msgid "Spanish"
+msgstr ""
