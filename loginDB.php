@@ -136,13 +136,12 @@ echo <<<HTML
         enterButton.addEventListener('click', () => {
             if (enteredCode.length !== 4) {
                 showMessage("Por favor ingrese 4 dígitos");
-            } else if (enteredCode === "1234") {
-                showMessage("Acceso concedido");
             } else {
-                showMessage("Código incorrecto");
-                enteredCode = "";
-                updatePinDisplay();
-            }
+                //showMessage("Acceso concedido");
+                //showMessage("Código incorrecto");
+                $output = shell_exec("sudo python /var/www/html/.py enteredCode");
+                showMessage($output);                
+            }             
         });
     </script>
 </body>
