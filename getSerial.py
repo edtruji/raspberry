@@ -27,24 +27,26 @@ def get_motherboard_serial():
 def generate_serial_number():
     # Get MAC and serial
     mac = get_mac_address()
-    serial = get_motherboard_serial()
+    boardserial = get_motherboard_serial()
     
-    if not mac or not serial:
+    if not mac or not boardserial:
         return "Error: Could not retrieve MAC address or serial number"
     
-    # Combine MAC and serial
-    combined = mac + serial
+    # Combine MAC and boardserial
+    combined = mac + boardserial
     
     # Create SHA-256 hash
     hasher = hashlib.sha256()
     hasher.update(combined.encode('utf-8'))
     serial_number = hasher.hexdigest()
     
-    return serial_number
+    return serial_number, mac ,boardserial 
 
 def main():
-    serial_number = generate_serial_number()
+    serial_number, mac, boardserial = generate_serial_number()
     print(f"Generated Serial Number: {serial_number}")
+    print(f"Generated MAC: {mac}")
+    print(f"Generated Board: {boardserial}")
 
 if __name__ == "__main__":
     main()
