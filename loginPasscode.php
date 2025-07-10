@@ -1,7 +1,7 @@
 <?php
 // loginPasscode.php
 // Enable error logging for debugging
-ini_set('display_errors', 1); // Show errors to the user
+ini_set('display_errors', 1); // Show errors to the users
 ini_set('log_errors', 1);
 ini_set('error_log', '/var/www/html/php_errors.log');
 
@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['passcode'])) {
     $passcode = filter_input(INPUT_POST, 'passcode', FILTER_VALIDATE_INT);
     
     if ($passcode === false || $passcode < 0) {
+        header('Content-Type: application/json');
         echo json_encode([
             'success' => false,
             'message' => 'Código inválido'
@@ -21,28 +22,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['passcode'])) {
         // Connect to SQLite database
         $db = new SQLite3(__DIR__ . '/amusement.db');
         
-        // Prepare and execute query (assuming column is 'name', adjust if it's 'users')
+        // Prepare and execute query (assuming column is 'name')
         $stmt = $db->prepare('SELECT name FROM users WHERE passcode = :passcode');
         $stmt->bindValue(':passcode', $passcode, SQLITE3_INTEGER);
         $result = $stmt->execute();
         
         // Check if user exists
         if ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            header('Content-Type: application/json');
             echo json_encode([
                 'success' => true,
                 'name' => $row['name']
             ]);
         } else {
+            header('Content-Type: application/json');
             echo json_encode([
                 'success' => false,
                 'message' => 'Código incorrecto'
             ]);
         }
         
-        $result->finalize(); // Free the result
+        $result->finalize();
         $db->close();
     } catch (Exception $e) {
         error_log('SQLite Error: ' . $e->getMessage());
+        header('Content-Type: application/json');
         echo json_encode([
             'success' => false,
             'message' => 'Error en la base de datos'
@@ -51,6 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['passcode'])) {
     exit;
 }
 
+// Output HTML and JavaScript
+header('Content-Type: text/html; charset=UTF-8');
 echo <<<HTML
 <!DOCTYPE html>
 <html>
@@ -190,7 +196,6 @@ echo <<<HTML
                 return;
             }
             
-            // Validate enteredCode is numeric
             if (!/^\d{4}$/.test(enteredCode)) {
                 showMessage('Código debe ser numérico');
                 enteredCode = '';
@@ -204,7 +209,7 @@ echo <<<HTML
                     headers: {
                         'Content-Type': 'application/x-www-form-urlencoded',
                     },
-                    body: `passcode=${encodeURIComponent(enteredCode)}`
+                    body: 'passcode=' + encodeURIComponent(enteredCode)
                 });
                 
                 if (!response.ok) {
@@ -215,7 +220,6 @@ echo <<<HTML
                 
                 if (result.success) {
                     showMessage(`Bienvenido, ${result.name}!`);
-                    // Optionally redirect or clear after a delay
                     setTimeout(() => {
                         enteredCode = '';
                         updatePinDisplay();
