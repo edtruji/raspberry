@@ -1,0 +1,273 @@
+<?php
+// settings.php
+echo <<<HTML
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Settings Screen</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #87CEEB, #ADD8E6);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .settings-container {
+            text-align: center;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .setting-item {
+            margin: 10px 0;
+            display: block; /* Stack items vertically */
+            text-align: left;
+            margin-left: 20px;
+        }
+        .setting-item input[type="text"] {
+            width: 150px;
+            padding: 5px;
+            margin: 5px 0; /* Vertical spacing */
+            border: 2px solid #ccc;
+            border-radius: 5px;
+        }
+        /* Toggle Switch Styles */
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 40px; /* Smaller width */
+            height: 24px; /* Smaller height */
+            margin-top: 5px; /* Align with vertical layout */
+        }
+        .toggle-switch input[type="checkbox"] {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #ff4d4d; /* Red for disabled */
+            transition: 0.4s;
+            border-radius: 24px;
+        }
+        .slider:before {
+            position: absolute;
+            content: "";
+            height: 18px; /* Smaller knob */
+            width: 18px; /* Smaller knob */
+            left: 3px;
+            bottom: 3px;
+            background-color: white;
+            transition: 0.4s;
+            border-radius: 50%;
+        }
+        input:checked + .slider {
+            background-color: #32CD32; /* Green for enabled */
+        }
+        input:checked + .slider:before {
+            transform: translateX(16px); /* Adjusted for smaller toggle */
+        }
+        .separator {
+            border-top: 1px solid #ccc;
+            margin: 20px 0;
+        }
+        #apply-btn {
+            margin-top: 20px;
+            width: 100px;
+            height: 40px;
+            font-size: 18px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background: #32CD32;
+            color: white;
+            cursor: pointer;
+            touch-action: manipulation;
+            transition: background 0.1s ease;
+        }
+        #apply-btn:active {
+            background: #28a428;
+            transform: scale(0.95);
+        }
+    </style>
+</head>
+<body>
+    <div class="settings-container">
+        <h2>Settings</h2>
+        <div class="setting-item">
+            <label>Require confirmation before sending credits to machine.</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="require-confirmation">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <label>To clear the LOG, require Managers password</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="require-manager-password">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <label>Employee can see the LOG table</label>
+            <label class="toggle-switch">
+                <input type="checkbox" id="employee-log">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="btn1-text" placeholder="1st button text"> 
+            <input type="text" id="btn1-pulses" placeholder="number of pulses"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="btn1-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="btn2-text" placeholder="2nd button text"> 
+            <input type="text" id="btn2-pulses" placeholder="number of pulses"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="btn2-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="btn3-text" placeholder="3rd button text"> 
+            <input type="text" id="btn3-pulses" placeholder="number of pulses"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="btn3-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="btn4-text" placeholder="4th button text"> 
+            <input type="text" id="btn4-pulses" placeholder="number of pulses"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="btn4-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="btn5-text" placeholder="5th button text"> 
+            <input type="text" id="btn5-pulses" placeholder="number of pulses"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="btn5-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="separator"></div>
+        <div class="setting-item">
+            <input type="text" id="emp1-name" placeholder="1st Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
+            <input type="text" id="emp1-passcode" placeholder="passcode is"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="emp1-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="emp2-name" placeholder="2nd Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
+            <input type="text" id="emp2-passcode" placeholder="passcode is"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="emp2-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="emp3-name" placeholder="3rd Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
+            <input type="text" id="emp3-passcode" placeholder="passcode is"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="emp3-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="emp4-name" placeholder="4th Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
+            <input type="text" id="emp4-passcode" placeholder="passcode is"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="emp4-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <div class="setting-item">
+            <input type="text" id="emp5-name" placeholder="5th Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
+            <input type="text" id="emp5-passcode" placeholder="passcode is"> 
+            <label class="toggle-switch">
+                <input type="checkbox" id="emp5-enable">
+                <span class="slider"></span>
+            </label>
+        </div>
+        <button id="apply-btn">APPLY</button>
+    </div>
+    <script>
+        const applyBtn = document.getElementById('apply-btn');
+
+        applyBtn.addEventListener('click', () => {
+            // Validate employee names (no digits)
+            const employeeNames = [
+                document.getElementById('emp1-name').value,
+                document.getElementById('emp2-name').value,
+                document.getElementById('emp3-name').value,
+                document.getElementById('emp4-name').value,
+                document.getElementById('emp5-name').value
+            ];
+            for (let i = 0; i < employeeNames.length; i++) {
+                if (employeeNames[i] && /\d/.test(employeeNames[i])) {
+                    alert(`Employee ${i + 1} name cannot contain digits.`);
+                    return;
+                }
+            }
+
+            const settings = {
+                requireConfirmation: document.getElementById('require-confirmation').checked,
+                requireManagerPassword: document.getElementById('require-manager-password').checked,
+                employeeLog: document.getElementById('employee-log').checked,
+                buttons: [
+                    { text: document.getElementById('btn1-text').value, pulses: document.getElementById('btn1-pulses').value, enabled: document.getElementById('btn1-enable').checked },
+                    { text: document.getElementById('btn2-text').value, pulses: document.getElementById('btn2-pulses').value, enabled: document.getElementById('btn2-enable').checked },
+                    { text: document.getElementById('btn3-text').value, pulses: document.getElementById('btn3-pulses').value, enabled: document.getElementById('btn3-enable').checked },
+                    { text: document.getElementById('btn4-text').value, pulses: document.getElementById('btn4-pulses').value, enabled: document.getElementById('btn4-enable').checked },
+                    { text: document.getElementById('btn5-text').value, pulses: document.getElementById('btn5-pulses').value, enabled: document.getElementById('btn5-enable').checked }
+                ],
+                employees: [
+                    { name: document.getElementById('emp1-name').value, passcode: document.getElementById('emp1-passcode').value, enabled: document.getElementById('emp1-enable').checked },
+                    { name: document.getElementById('emp2-name').value, passcode: document.getElementById('emp2-passcode').value, enabled: document.getElementById('emp2-enable').checked },
+                    { name: document.getElementById('emp3-name').value, passcode: document.getElementById('emp3-passcode').value, enabled: document.getElementById('emp3-enable').checked },
+                    { name: document.getElementById('emp4-name').value, passcode: document.getElementById('emp4-passcode').value, enabled: document.getElementById('emp4-enable').checked },
+                    { name: document.getElementById('emp5-name').value, passcode: document.getElementById('emp5-passcode').value, enabled: document.getElementById('emp5-enable').checked }
+                ]
+            };
+
+            const jsonSettings = JSON.stringify(settings);
+
+            // Send JSON to settings.py
+            fetch('settings.py', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: jsonSettings
+            })
+            .then(response => response.text())
+            .then(data => {
+                alert('Settings sent to Python script: ' + data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Failed to send settings to Python script.');
+            });
+        });
+    </script>
+</body>
+</html>
+HTML;
+?>
