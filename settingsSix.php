@@ -165,7 +165,7 @@ echo <<<HTML
         <div class="separator"></div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="btn1-text" placeholder="1st button text"> 
+                <input type="text" id="btn1-text" placeholder="1st button text" maxlength="20"> 
                 <input type="text" id="btn1-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -175,7 +175,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="btn2-text" placeholder="2nd button text"> 
+                <input type="text" id="btn2-text" placeholder="2nd button text" maxlength="20"> 
                 <input type="text" id="btn2-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -185,7 +185,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="btn3-text" placeholder="3rd button text"> 
+                <input type="text" id="btn3-text" placeholder="3rd button text" maxlength="20"> 
                 <input type="text" id="btn3-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -195,7 +195,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="btn4-text" placeholder="4th button text"> 
+                <input type="text" id="btn4-text" placeholder="4th button text" maxlength="20"> 
                 <input type="text" id="btn4-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -205,7 +205,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="btn5-text" placeholder="5th button text"> 
+                <input type="text" id="btn5-text" placeholder="5th button text" maxlength="20"> 
                 <input type="text" id="btn5-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -216,7 +216,7 @@ echo <<<HTML
         <div class="separator"></div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="emp1-name" placeholder="1st Employee Name"> 
+                <input type="text" id="emp1-name" placeholder="1st Employee Name" maxlength="20"> 
                 <input type="text" id="emp1-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -226,7 +226,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="emp2-name" placeholder="2nd Employee Name"> 
+                <input type="text" id="emp2-name" placeholder="2nd Employee Name" maxlength="20"> 
                 <input type="text" id="emp2-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -236,7 +236,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="emp3-name" placeholder="3rd Employee Name"> 
+                <input type="text" id="emp3-name" placeholder="3rd Employee Name" maxlength="20"> 
                 <input type="text" id="emp3-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -246,7 +246,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="emp4-name" placeholder="4th Employee Name"> 
+                <input type="text" id="emp4-name" placeholder="4th Employee Name" maxlength="20"> 
                 <input type="text" id="emp4-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
@@ -256,7 +256,7 @@ echo <<<HTML
         </div>
         <div class="setting-item">
             <div class="input-group">
-                <input type="text" id="emp5-name" placeholder="5th Employee Name"> 
+                <input type="text" id="emp5-name" placeholder="5th Employee Name" maxlength="20"> 
                 <input type="text" id="emp5-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
             </div>
             <label class="toggle-switch">
