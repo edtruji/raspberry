@@ -28,24 +28,36 @@ echo <<<HTML
         }
         .setting-item {
             margin: 10px 0;
-            display: block; /* Stack items vertically */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+        .vertical-checkboxes .setting-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
             text-align: left;
-            margin-left: 20px;
+            padding: 0 20px;
         }
         .setting-item input[type="text"] {
             width: 150px;
             padding: 5px;
-            margin: 5px 0; /* Vertical spacing */
+            margin-right: 10px;
             border: 2px solid #ccc;
             border-radius: 5px;
         }
-        /* Toggle Switch Styles */
+        .input-group {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
         .toggle-switch {
             position: relative;
             display: inline-block;
-            width: 40px; /* Smaller width */
-            height: 24px; /* Smaller height */
-            margin-top: 5px; /* Align with vertical layout */
+            width: 60px;
+            height: 34px;
+            margin-left: 10px;
         }
         .toggle-switch input[type="checkbox"] {
             opacity: 0;
@@ -59,26 +71,26 @@ echo <<<HTML
             left: 0;
             right: 0;
             bottom: 0;
-            background-color: #ff4d4d; /* Red for disabled */
+            background-color: #ff4d4d;
             transition: 0.4s;
-            border-radius: 24px;
+            border-radius: 34px;
         }
         .slider:before {
             position: absolute;
             content: "";
-            height: 18px; /* Smaller knob */
-            width: 18px; /* Smaller knob */
-            left: 3px;
-            bottom: 3px;
+            height: 26px;
+            width: 26px;
+            left: 4px;
+            bottom: 4px;
             background-color: white;
             transition: 0.4s;
             border-radius: 50%;
         }
         input:checked + .slider {
-            background-color: #32CD32; /* Green for enabled */
+            background-color: #32CD32;
         }
         input:checked + .slider:before {
-            transform: translateX(16px); /* Adjusted for smaller toggle */
+            transform: translateX(26px);
         }
         .separator {
             border-top: 1px solid #ccc;
@@ -106,62 +118,75 @@ echo <<<HTML
 <body>
     <div class="settings-container">
         <h2>Settings</h2>
-        <div class="setting-item">
-            <label>Require confirmation before sending credits to machine.</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="require-confirmation">
-                <span class="slider"></span>
-            </label>
+        <div class="vertical-checkboxes">
+            <div class="setting-item">
+                <label>Require confirmation before sending credits to machine.</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="require-confirmation">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>To clear the LOG, require Managers password</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="require-manager-password">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="setting-item">
+                <label>Employee can see the LOG table</label>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="employee-log">
+                    <span class="slider"></span>
+                </label>
+            </div>
         </div>
+        <div class="separator"></div>
         <div class="setting-item">
-            <label>To clear the LOG, require Managers password</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="require-manager-password">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <label>Employee can see the LOG table</label>
-            <label class="toggle-switch">
-                <input type="checkbox" id="employee-log">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <input type="text" id="btn1-text" placeholder="1st button text"> 
-            <input type="text" id="btn1-pulses" placeholder="number of pulses"> 
+            <div class="input-group">
+                <input type="text" id="btn1-text" placeholder="1st button text"> 
+                <input type="text" id="btn1-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="btn1-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="btn2-text" placeholder="2nd button text"> 
-            <input type="text" id="btn2-pulses" placeholder="number of pulses"> 
+            <div class="input-group">
+                <input type="text" id="btn2-text" placeholder="2nd button text"> 
+                <input type="text" id="btn2-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="btn2-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="btn3-text" placeholder="3rd button text"> 
-            <input type="text" id="btn3-pulses" placeholder="number of pulses"> 
+            <div class="input-group">
+                <input type="text" id="btn3-text" placeholder="3rd button text"> 
+                <input type="text" id="btn3-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="btn3-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="btn4-text" placeholder="4th button text"> 
-            <input type="text" id="btn4-pulses" placeholder="number of pulses"> 
+            <div class="input-group">
+                <input type="text" id="btn4-text" placeholder="4th button text"> 
+                <input type="text" id="btn4-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="btn4-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="btn5-text" placeholder="5th button text"> 
-            <input type="text" id="btn5-pulses" placeholder="number of pulses"> 
+            <div class="input-group">
+                <input type="text" id="btn5-text" placeholder="5th button text"> 
+                <input type="text" id="btn5-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="btn5-enable">
                 <span class="slider"></span>
@@ -169,40 +194,50 @@ echo <<<HTML
         </div>
         <div class="separator"></div>
         <div class="setting-item">
-            <input type="text" id="emp1-name" placeholder="1st Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
-            <input type="text" id="emp1-passcode" placeholder="passcode is"> 
+            <div class="input-group">
+                <input type="text" id="emp1-name" placeholder="1st Employee Name"> 
+                <input type="text" id="emp1-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="emp1-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="emp2-name" placeholder="2nd Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
-            <input type="text" id="emp2-passcode" placeholder="passcode is"> 
+            <div class="input-group">
+                <input type="text" id="emp2-name" placeholder="2nd Employee Name"> 
+                <input type="text" id="emp2-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="emp2-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="emp3-name" placeholder="3rd Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
-            <input type="text" id="emp3-passcode" placeholder="passcode is"> 
+            <div class="input-group">
+                <input type="text" id="emp3-name" placeholder="3rd Employee Name"> 
+                <input type="text" id="emp3-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="emp3-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="emp4-name" placeholder="4th Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
-            <input type="text" id="emp4-passcode" placeholder="passcode is"> 
+            <div class="input-group">
+                <input type="text" id="emp4-name" placeholder="4th Employee Name"> 
+                <input type="text" id="emp4-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="emp4-enable">
                 <span class="slider"></span>
             </label>
         </div>
         <div class="setting-item">
-            <input type="text" id="emp5-name" placeholder="5th Employee Name" pattern="[A-Za-z\s]+" title="Only letters and spaces allowed"> 
-            <input type="text" id="emp5-passcode" placeholder="passcode is"> 
+            <div class="input-group">
+                <input type="text" id="emp5-name" placeholder="5th Employee Name"> 
+                <input type="text" id="emp5-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            </div>
             <label class="toggle-switch">
                 <input type="checkbox" id="emp5-enable">
                 <span class="slider"></span>
@@ -211,24 +246,24 @@ echo <<<HTML
         <button id="apply-btn">APPLY</button>
     </div>
     <script>
-        const applyBtn = document.getElementById('apply-btn');
-
-        applyBtn.addEventListener('click', () => {
-            // Validate employee names (no digits)
-            const employeeNames = [
-                document.getElementById('emp1-name').value,
-                document.getElementById('emp2-name').value,
-                document.getElementById('emp3-name').value,
-                document.getElementById('emp4-name').value,
-                document.getElementById('emp5-name').value
-            ];
-            for (let i = 0; i < employeeNames.length; i++) {
-                if (employeeNames[i] && /\d/.test(employeeNames[i])) {
-                    alert(`Employee ${i + 1} name cannot contain digits.`);
-                    return;
+        // Add input validation for passcode and pulses fields
+        const numericInputs = document.querySelectorAll('input[id*="passcode"], input[id*="pulses"]');
+        
+        numericInputs.forEach(input => {
+            input.addEventListener('input', function(e) {
+                // Remove any non-digit characters
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+            
+            input.addEventListener('keypress', function(e) {
+                // Prevent non-digit keys from being entered
+                if (!/[0-9]/.test(e.key)) {
+                    e.preventDefault();
                 }
-            }
+            });
+        });
 
+        document.getElementById('apply-btn').addEventListener('click', function() {
             const settings = {
                 requireConfirmation: document.getElementById('require-confirmation').checked,
                 requireManagerPassword: document.getElementById('require-manager-password').checked,
