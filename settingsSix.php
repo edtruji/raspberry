@@ -41,7 +41,8 @@ echo <<<HTML
             text-align: left;
             padding: 0 20px;
         }
-        .setting-item input[type="text"] {
+        .setting-item input[type="text"],
+        .setting-item input[type="password"] {
             width: 150px;
             padding: 5px;
             margin-right: 10px;
@@ -103,7 +104,7 @@ echo <<<HTML
             height: 40px;
             font-size: 18px;
             border: 2px solid #ccc;
-            border-radius:imaan 5px;
+            border-radius: 5px;
             background: #32CD32;
             color: white;
             cursor: pointer;
@@ -208,6 +209,13 @@ echo <<<HTML
                         <input type="checkbox" id="require-passcode">
                         <span class="slider"></span>
                     </label>
+                </div>
+                <div class="setting-item">
+                    <label>Change Administrator password</label>
+                    <div class="input-group">
+                        <input type="password" id="admin-passcode" placeholder="New passcode" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                        <input type="password" id="admin-confirm-passcode" placeholder="Confirm passcode" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                    </div>
                 </div>
             </div>
         </div>
@@ -361,6 +369,8 @@ echo <<<HTML
                 employeeTotalIncome: document.getElementById('employee-total-income').checked,
                 employeeReboot: document.getElementById('employee-reboot').checked,
                 requirePasscode: document.getElementById('require-passcode').checked,
+                adminPasscode: document.getElementById('admin-passcode').value,
+                adminConfirmPasscode: document.getElementById('admin-confirm-passcode').value,
                 buttons: [
                     { text: document.getElementById('btn1-text').value, pulses: document.getElementById('btn1-pulses').value, enabled: document.getElementById('btn1-enable').checked },
                     { text: document.getElementById('btn2-text').value, pulses: document.getElementById('btn2-pulses').value, enabled: document.getElementById('btn2-enable').checked },
