@@ -21,6 +21,7 @@ echo <<<HTML
             background: rgba(255, 255, 255, 0.8);
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 600px;
         }
         h2 {
             font-size: 24px;
@@ -113,160 +114,212 @@ echo <<<HTML
             background: #28a428;
             transform: scale(0.95);
         }
+        /* Tab Styles */
+        .tab-nav {
+            display: flex;
+            border-bottom: 2px solid #ccc;
+            margin-bottom: 20px;
+        }
+        .tab-link {
+            flex: 1;
+            padding: 10px;
+            text-align: center;
+            background: #f0f0f0;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+            transition: background 0.3s;
+        }
+        .tab-link.active {
+            background: #32CD32;
+            color: white;
+        }
+        .tab-link:hover {
+            background: #e0e0e0;
+        }
+        .tab-content {
+            display: none;
+        }
+        .tab-content.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
     <div class="settings-container">
         <h2>Settings</h2>
-        <div class="vertical-checkboxes">
+        <div class="tab-nav">
+            <div class="tab-link active" data-tab="general">General Settings</div>
+            <div class="tab-link" data-tab="other">Other Settings</div>
+        </div>
+        <div id="general" class="tab-content active">
+            <div class="vertical-checkboxes">
+                <div class="setting-item">
+                    <label>Require confirmation before sending credits to machine.</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="require-confirmation">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>To clear the LOG, require Managers password</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="require-manager-password">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Employee can see the LOG table</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="employee-log">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Employee can see TOTAL IN</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="employee-total-in">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Employee can see TOTAL OUT</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="employee-total-out">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Employee can see TOTAL INCOME</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="employee-total-income">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div id="other" class="tab-content">
+            <div class="separator"></div>
             <div class="setting-item">
-                <label>Require confirmation before sending credits to machine.</label>
+                <div class="input-group">
+                    <input type="text" id="btn1-text" placeholder="1st button text" maxlength="20"> 
+                    <input type="text" id="btn1-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="require-confirmation">
+                    <input type="checkbox" id="btn1-enable">
                     <span class="slider"></span>
                 </label>
             </div>
             <div class="setting-item">
-                <label>To clear the LOG, require Managers password</label>
+                <div class="input-group">
+                    <input type="text" id="btn2-text" placeholder="2nd button text" maxlength="20"> 
+                    <input type="text" id="btn2-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="require-manager-password">
+                    <input type="checkbox" id="btn2-enable">
                     <span class="slider"></span>
                 </label>
             </div>
             <div class="setting-item">
-                <label>Employee can see the LOG table</label>
+                <div class="input-group">
+                    <input type="text" id="btn3-text" placeholder="3rd button text" maxlength="20"> 
+                    <input type="text" id="btn3-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="employee-log">
+                    <input type="checkbox" id="btn3-enable">
                     <span class="slider"></span>
                 </label>
             </div>
             <div class="setting-item">
-                <label>Employee can see TOTAL IN</label>
+                <div class="input-group">
+                    <input type="text" id="btn4-text" placeholder="4th button text" maxlength="20"> 
+                    <input type="text" id="btn4-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="employee-total-in">
+                    <input type="checkbox" id="btn4-enable">
                     <span class="slider"></span>
                 </label>
             </div>
             <div class="setting-item">
-                <label>Employee can see TOTAL OUT</label>
+                <div class="input-group">
+                    <input type="text" id="btn5-text" placeholder="5th button text" maxlength="20"> 
+                    <input type="text" id="btn5-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="employee-total-out">
+                    <input type="checkbox" id="btn5-enable">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            <div class="separator"></div>
+            <div class="setting-item">
+                <div class="input-group">
+                    <input type="text" id="emp1-name" placeholder="1st Employee Name" maxlength="20"> 
+                    <input type="text" id="emp1-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emp1-enable">
                     <span class="slider"></span>
                 </label>
             </div>
             <div class="setting-item">
-                <label>Employee can see TOTAL INCOME</label>
+                <div class="input-group">
+                    <input type="text" id="emp2-name" placeholder="2nd Employee Name" maxlength="20"> 
+                    <input type="text" id="emp2-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="employee-total-income">
+                    <input type="checkbox" id="emp2-enable">
                     <span class="slider"></span>
                 </label>
             </div>
-        </div>
-        <div class="separator"></div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="btn1-text" placeholder="1st button text" maxlength="20"> 
-                <input type="text" id="btn1-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            <div class="setting-item">
+                <div class="input-group">
+                    <input type="text" id="emp3-name" placeholder="3rd Employee Name" maxlength="20"> 
+                    <input type="text" id="emp3-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emp3-enable">
+                    <span class="slider"></span>
+                </label>
             </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="btn1-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="btn2-text" placeholder="2nd button text" maxlength="20"> 
-                <input type="text" id="btn2-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            <div class="setting-item">
+                <div class="input-group">
+                    <input type="text" id="emp4-name" placeholder="4th Employee Name" maxlength="20"> 
+                    <input type="text" id="emp4-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emp4-enable">
+                    <span class="slider"></span>
+                </label>
             </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="btn2-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="btn3-text" placeholder="3rd button text" maxlength="20"> 
-                <input type="text" id="btn3-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+            <div class="setting-item">
+                <div class="input-group">
+                    <input type="text" id="emp5-name" placeholder="5th Employee Name" maxlength="20"> 
+                    <input type="text" id="emp5-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
+                </div>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="emp5-enable">
+                    <span class="slider"></span>
+                </label>
             </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="btn3-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="btn4-text" placeholder="4th button text" maxlength="20"> 
-                <input type="text" id="btn4-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="btn4-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="btn5-text" placeholder="5th button text" maxlength="20"> 
-                <input type="text" id="btn5-pulses" placeholder="number of pulses" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="btn5-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="separator"></div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="emp1-name" placeholder="1st Employee Name" maxlength="20"> 
-                <input type="text" id="emp1-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="emp1-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="emp2-name" placeholder="2nd Employee Name" maxlength="20"> 
-                <input type="text" id="emp2-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="emp2-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="emp3-name" placeholder="3rd Employee Name" maxlength="20"> 
-                <input type="text" id="emp3-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="emp3-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="emp4-name" placeholder="4th Employee Name" maxlength="20"> 
-                <input type="text" id="emp4-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="emp4-enable">
-                <span class="slider"></span>
-            </label>
-        </div>
-        <div class="setting-item">
-            <div class="input-group">
-                <input type="text" id="emp5-name" placeholder="5th Employee Name" maxlength="20"> 
-                <input type="text" id="emp5-passcode" placeholder="passcode is" pattern="[0-9]*" inputmode="numeric" maxlength="10"> 
-            </div>
-            <label class="toggle-switch">
-                <input type="checkbox" id="emp5-enable">
-                <span class="slider"></span>
-            </label>
         </div>
         <button id="apply-btn">APPLY</button>
     </div>
     <script>
+        // Tab Switching
+        const tabLinks = document.querySelectorAll('.tab-link');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                // Remove active class from all tabs and contents
+                tabLinks.forEach(l => l.classList.remove('active'));
+                tabContents.forEach(c => c.classList.remove('active'));
+
+                // Add active class to clicked tab and corresponding content
+                link.classList.add('active');
+                document.getElementById(link.dataset.tab).classList.add('active');
+            });
+        });
+
         // Add input validation for passcode and pulses fields
         const numericInputs = document.querySelectorAll('input[id*="passcode"], input[id*="pulses"]');
         
