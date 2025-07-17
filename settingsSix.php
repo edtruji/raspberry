@@ -103,7 +103,7 @@ echo <<<HTML
             height: 40px;
             font-size: 18px;
             border: 2px solid #ccc;
-            border-radius: 5px;
+            border-radius:imaan 5px;
             background: #32CD32;
             color: white;
             cursor: pointer;
@@ -161,9 +161,9 @@ echo <<<HTML
                     </label>
                 </div>
                 <div class="setting-item">
-                    <label>To clear the LOG, require Managers password</label>
+                    <label>To clear the LOG, require Administrator's password</label>
                     <label class="toggle-switch">
-                        <input type="checkbox" id="require-manager-password">
+                        <input type="checkbox" id="require-admin-password">
                         <span class="slider"></span>
                     </label>
                 </div>
@@ -192,6 +192,20 @@ echo <<<HTML
                     <label>Employee can see TOTAL INCOME</label>
                     <label class="toggle-switch">
                         <input type="checkbox" id="employee-total-income">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Employee have the reboot button available</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="employee-reboot">
+                        <span class="slider"></span>
+                    </label>
+                </div>
+                <div class="setting-item">
+                    <label>Require passcode for every action on the control panel</label>
+                    <label class="toggle-switch">
+                        <input type="checkbox" id="require-passcode">
                         <span class="slider"></span>
                     </label>
                 </div>
@@ -340,11 +354,13 @@ echo <<<HTML
         document.getElementById('apply-btn').addEventListener('click', function() {
             const settings = {
                 requireConfirmation: document.getElementById('require-confirmation').checked,
-                requireManagerPassword: document.getElementById('require-manager-password').checked,
+                requireAdminPassword: document.getElementById('require-admin-password').checked,
                 employeeLog: document.getElementById('employee-log').checked,
                 employeeTotalIn: document.getElementById('employee-total-in').checked,
                 employeeTotalOut: document.getElementById('employee-total-out').checked,
                 employeeTotalIncome: document.getElementById('employee-total-income').checked,
+                employeeReboot: document.getElementById('employee-reboot').checked,
+                requirePasscode: document.getElementById('require-passcode').checked,
                 buttons: [
                     { text: document.getElementById('btn1-text').value, pulses: document.getElementById('btn1-pulses').value, enabled: document.getElementById('btn1-enable').checked },
                     { text: document.getElementById('btn2-text').value, pulses: document.getElementById('btn2-pulses').value, enabled: document.getElementById('btn2-enable').checked },
