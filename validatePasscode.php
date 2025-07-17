@@ -1,3 +1,33 @@
+<?php
+// validatePasscode.php
+
+// Check if the form is submitted with a passcode
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['passcode'])) {
+    $passcode = trim($_POST['passcode']);
+    
+    // Validate passcode is a 4, 5, 6, 7, or 8-digit number
+    if (!preg_match('/^\d{4,8}$/', $passcode)) {
+        $message = "Por favor ingrese un código de 4 a 8 dígitos";
+    } else {
+        // Execute the Python script with the passcode
+        $python_script = escapeshellcmd('python3 validatePasscode.py');
+        $passcode_arg = escapeshellarg($passcode);
+        $command = "$python_script $passcode_arg";
+        $output = shell_exec($command);
+        $output = trim($output);
+
+        // Check the Python script's output
+        if (strpos($output, 'Error:') === 0) {
+            $message = str_replace('Error: ', '', $output); // Extract error message
+        } else {
+            $message = "Acceso concedido: Bienvenido, $output";
+        }
+    }
+} else {
+    $message = '';
+}
+
+echo <<<HTML
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,7 +107,7 @@
     <div class="login-container">
         <h2>Número de Empleado</h2>
         <span id="pin-display"></span>
-        <div id="message">No user found with this passcode</div>
+        <div id="message">$message</div>
         <form id="passcode-form" method="POST" action="">
             <input type="hidden" name="passcode" id="passcode-input">
             <div class="keypad">
@@ -92,7 +122,7 @@
                 <button type="button" class="digit" data-digit="9">9</button>
                 <button type="button" id="backspace">Borrar</button>
                 <button type="button" class="digit" data-digit="0">0</button>
-                <button type="submit" id="enter">OK</button>
+                <button type="submit" id="enter">Aceptar</button>
             </div>
         </form>
     </div>
@@ -122,7 +152,7 @@
         
         digitButtons.forEach(button => {
             button.addEventListener('click', () => {
-                if (enteredCode.length < 8) { // Changed from 7 to 8
+                if (enteredCode.length < 8) {
                     enteredCode += button.dataset.digit;
                     updatePinDisplay();
                     clearMessage();
@@ -137,10 +167,8 @@
         });
         
         enterButton.addEventListener('click', () => {
-            if (enteredCode.length < 4) { // Changed to check for minimum 4 digits
-                showMessage("Por favor ingrese entre 4 y 8 dígitos");
-            } else if (enteredCode.length > 8) { // Added check for maximum 8 digits
-                showMessage("Por favor ingrese entre 4 y 8 dígitos");
+            if (enteredCode.length < 4 || enteredCode.length > 8) {
+                showMessage("Por favor ingrese un código de 4 a 8 dígitos");
             } else {
                 form.submit();
             }
@@ -148,3 +176,5 @@
     </script>
 </body>
 </html>
+HTML;
+?>
