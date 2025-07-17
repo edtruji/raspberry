@@ -3,10 +3,10 @@ import sys
 
 def validate_user(passcode):
     try:
-        # Convert passcode to integer and validate it's a 4-digit number
+        # Convert passcode to integer and validate it's a 4 to 8-digit number
         passcode = int(passcode)
-        if not (1000 <= passcode <= 9999):
-            return "Error: Passcode must be a 4-digit number"
+        if not (1000 <= passcode <= 99999999):
+            return "Error: Passcode must be a 4 to 8-digit number"
 
         # Connect to the database
         conn = sqlite3.connect('amusement.db')
@@ -33,7 +33,7 @@ def validate_user(passcode):
 if __name__ == "__main__":
     # Check if passcode argument is provided
     if len(sys.argv) != 2:
-        print("Error: Please provide a 4-digit passcode as an argument")
+        print("Error: Please provide a 4 to 8-digit passcode as an argument")
         sys.exit(1)
 
     # Get the passcode from command-line argument
